@@ -11,6 +11,7 @@
             "program": "${workspaceFolder}/target/debug/aoc24",
             "args": [
                 "day01",
+                "example"
             ],
             "cwd": "${workspaceFolder}",
             "env": {
