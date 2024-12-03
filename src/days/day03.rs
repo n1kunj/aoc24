@@ -1,7 +1,7 @@
-use crate::part_result::PartResult;
+use crate::day_output::DayOutput;
 use regex::{Captures, Regex};
 
-pub fn main(input: &str, output: &mut PartResult) {
+pub fn main(input: &str, output: &mut DayOutput) {
     let mul_re = Regex::new(r"mul\((\d+),(\d+)\)").unwrap();
     let do_re = Regex::new(r"do\(\)").unwrap();
     let dont_re = Regex::new(r"don't\(\)").unwrap();

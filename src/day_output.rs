@@ -1,11 +1,11 @@
-pub struct PartResult {
+pub struct DayOutput {
     part1: Option<i64>,
     part2: Option<i64>,
 }
 
-impl PartResult {
-    pub fn new() -> PartResult {
-        PartResult {
+impl DayOutput {
+    pub fn new() -> DayOutput {
+        DayOutput {
             part1: None,
             part2: None,
         }

@@ -1,10 +1,10 @@
-use crate::part_result::PartResult;
+use crate::day_output::DayOutput;
 
 mod day01;
 mod day02;
 mod day03;
 
-type DayFn = fn(&str, &mut PartResult) -> ();
+type DayFn = fn(&str, &mut DayOutput) -> ();
 
 pub const DAYS: &[(&str, DayFn)] = &[
     ("day01", day01::main),

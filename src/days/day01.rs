@@ -1,8 +1,8 @@
 use std::{collections::HashMap, iter::zip};
 
-use crate::part_result::PartResult;
+use crate::day_output::DayOutput;
 
-pub fn main(input: &str, output: &mut PartResult) {
+pub fn main(input: &str, output: &mut DayOutput) {
     let mut lefts = Vec::<u64>::new();
     let mut rights = Vec::<u64>::new();
 

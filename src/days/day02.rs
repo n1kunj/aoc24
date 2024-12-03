@@ -1,11 +1,11 @@
-use crate::part_result::PartResult;
+use crate::day_output::DayOutput;
 
 #[derive(Debug)]
 struct Report {
     levels: Vec<u64>,
 }
 
-pub fn main(input: &str, output: &mut PartResult) {
+pub fn main(input: &str, output: &mut DayOutput) {
     let mut reports = Vec::<Report>::new();
     for line in input.lines() {
         let mut report = Report { levels: vec![] };

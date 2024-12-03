@@ -1,10 +1,10 @@
+mod day_output;
 mod days;
-mod part_result;
 
 use days::DAYS;
 
 use clap::Parser;
-use part_result::PartResult;
+use day_output::DayOutput;
 use std::{
     path::{Path, PathBuf},
     time::Instant,
@@ -19,7 +19,7 @@ struct Args {
 fn main() -> Result<(), String> {
     let args = Args::parse();
 
-    let mut f: Option<&fn(&str, output: &mut PartResult) -> ()> = None;
+    let mut f: Option<&fn(&str, output: &mut DayOutput) -> ()> = None;
 
     for day in DAYS {
         if day.0 == args.day {
@@ -69,7 +69,7 @@ fn main() -> Result<(), String> {
             // Run examples first
             dir_names.retain_mut(|dir_name| {
                 if dir_name.starts_with("example") {
-                    load_and_run(&dir_name);
+                    load_and_run(dir_name);
                     return false;
                 }
                 true
@@ -78,7 +78,7 @@ fn main() -> Result<(), String> {
             // Run everything except reals second
             dir_names.retain_mut(|dir_name| {
                 if !dir_name.starts_with("real") {
-                    load_and_run(&dir_name);
+                    load_and_run(dir_name);
                     return false;
                 }
                 true
@@ -86,7 +86,7 @@ fn main() -> Result<(), String> {
 
             // Run everything remaining
             for dir_name in dir_names.iter() {
-                load_and_run(&dir_name);
+                load_and_run(dir_name);
             }
         }
     };
@@ -95,7 +95,7 @@ fn main() -> Result<(), String> {
 }
 
 fn run(
-    f: &fn(&str, output: &mut PartResult),
+    f: &fn(&str, output: &mut DayOutput),
     name: &str,
     input: &str,
     part1: Option<i64>,
@@ -103,7 +103,7 @@ fn run(
 ) {
     println!("[{name}] Running...");
 
-    let mut res = PartResult::new();
+    let mut res = DayOutput::new();
     let before = Instant::now();
     f(input, &mut res);
     let after = Instant::now();
