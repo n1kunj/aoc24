@@ -54,30 +54,39 @@ fn main() -> Result<(), String> {
     match &args.input {
         Some(input) => load_and_run(input),
         None => {
-            let mut has_example = false;
-            let mut has_real = false;
-            let mut dir_names = Vec::<String>::new();
-            for dir in std::fs::read_dir(Path::new(&all_inputs_dir)).unwrap() {
-                let dir = dir.unwrap();
-                if dir.file_type().unwrap().is_dir() {
-                    match dir.file_name().to_str().unwrap() {
-                        "example" => has_example = true,
-                        "real" => has_real = true,
-                        other => dir_names.push(other.to_owned()),
+            let mut dir_names = std::fs::read_dir(Path::new(&all_inputs_dir))
+                .unwrap()
+                .filter_map(|dir| {
+                    let dir = dir.unwrap();
+                    match dir.file_type().unwrap().is_dir() {
+                        true => Some(dir.file_name().to_str().unwrap().to_owned()),
+                        false => None,
                     }
+                })
+                .collect::<Vec<_>>();
+
+            dir_names.sort();
+            // Run examples first
+            dir_names.retain_mut(|dir_name| {
+                if dir_name.starts_with("example") {
+                    load_and_run(&dir_name);
+                    return false;
                 }
-            }
-            // Run example first
-            if has_example {
-                load_and_run("example");
-            }
-            // Then everything except real next
-            for dir_name in dir_names {
+                true
+            });
+
+            // Run everything except reals second
+            dir_names.retain_mut(|dir_name| {
+                if !dir_name.starts_with("real") {
+                    load_and_run(&dir_name);
+                    return false;
+                }
+                true
+            });
+
+            // Run everything remaining
+            for dir_name in dir_names.iter() {
                 load_and_run(&dir_name);
-            }
-            // Then finally real
-            if has_real {
-                load_and_run("real");
             }
         }
     };
