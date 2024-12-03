@@ -23,7 +23,7 @@ pub fn main(input: &str, output: &mut PartResult) {
                     return false;
                 }
                 let diff = next - cur;
-                if diff < 1 || diff > 3 {
+                if !(1..=3).contains(&diff) {
                     return false;
                 }
 
@@ -78,7 +78,7 @@ pub fn main(input: &str, output: &mut PartResult) {
                     return Some(());
                 }
             }
-            return None;
+            None
         })
         .count();
 

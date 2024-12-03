@@ -11,14 +11,14 @@ impl PartResult {
         }
     }
 
-    pub fn part1(&mut self, result: i64) -> () {
+    pub fn part1(&mut self, result: i64){
         if self.part1.is_some() {
             panic!()
         }
         self.part1 = Some(result)
     }
 
-    pub fn part2(&mut self, result: i64) -> () {
+    pub fn part2(&mut self, result: i64){
         if self.part2.is_some() {
             panic!()
         }

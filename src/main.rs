@@ -39,7 +39,7 @@ fn main() -> Result<(), String> {
 
         let parse_part = |res: std::io::Result<String>| -> Option<i64> {
             match res {
-                Ok(s) => Some(i64::from_str_radix(&s, 10).unwrap()),
+                Ok(s) => Some(s.parse::<i64>().unwrap()),
                 Err(_) => None,
             }
         };
@@ -96,7 +96,7 @@ fn run(
 
     let mut res = PartResult::new();
     let before = Instant::now();
-    f(&input, &mut res);
+    f(input, &mut res);
     let after = Instant::now();
     let dur = after - before;
     println!("    [{name}] Took {dur:#?}");
