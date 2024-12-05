@@ -10,14 +10,17 @@
             "name": "lldb aoc24",
             "program": "${workspaceFolder}/target/debug/aoc24",
             "args": [
-                "day03",
+                "day04",
                 "example"
             ],
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
             },
-            "preLaunchTask": "rust: cargo build"
+            "preLaunchTask": "rust: cargo build",
+            "preRunCommands": [
+                "command script import /usr/local/bin/rust_prettifier_for_lldb.py"
+            ],
         },
     ]
 }
