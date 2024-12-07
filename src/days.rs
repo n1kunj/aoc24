@@ -6,6 +6,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 
 type DayFn = fn(&str, &mut DayOutput) -> ();
 
@@ -16,4 +17,5 @@ pub const DAYS: &[(&str, DayFn)] = &[
     ("day04", day04::main),
     ("day05", day05::main),
     ("day06", day06::main),
+    ("day07", day07::main),
 ];
