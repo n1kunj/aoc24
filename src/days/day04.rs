@@ -1,4 +1,7 @@
-use crate::day_output::DayOutput;
+use crate::{
+    day_output::DayOutput,
+    facing::{Facing, FACINGS},
+};
 
 #[derive(Copy, Clone, PartialEq, Debug)]
 enum Letter {
@@ -25,44 +28,6 @@ impl WordSearch {
     }
 }
 
-#[derive(Copy, Clone, Debug)]
-enum Direction {
-    N,
-    NE,
-    E,
-    SE,
-    S,
-    SW,
-    W,
-    NW,
-}
-
-impl Direction {
-    fn go((x, y): (isize, isize), d: Direction) -> (isize, isize) {
-        match d {
-            Direction::N => (x, y - 1),
-            Direction::NE => (x + 1, y - 1),
-            Direction::E => (x + 1, y),
-            Direction::SE => (x + 1, y + 1),
-            Direction::S => (x, y + 1),
-            Direction::SW => (x - 1, y + 1),
-            Direction::W => (x - 1, y),
-            Direction::NW => (x - 1, y - 1),
-        }
-    }
-}
-
-const DIRS: &[Direction] = &[
-    Direction::N,
-    Direction::NE,
-    Direction::E,
-    Direction::SE,
-    Direction::S,
-    Direction::SW,
-    Direction::W,
-    Direction::NW,
-];
-
 pub fn main(input: &str, output: &mut DayOutput) {
     let mut rows = Vec::<Row>::new();
     for row in input.lines() {
@@ -87,11 +52,11 @@ pub fn main(input: &str, output: &mut DayOutput) {
             if *letter != Letter::X {
                 continue;
             }
-            for d in DIRS.iter() {
+            for d in FACINGS.iter() {
                 let mut pos = (x as isize, y as isize);
                 let mut matched = true;
                 for expected in [Letter::M, Letter::A, Letter::S] {
-                    pos = Direction::go(pos, *d);
+                    pos = Facing::go(pos, *d);
                     if Some(expected) == ws.at(pos) {
                         continue;
                     }
@@ -114,12 +79,12 @@ pub fn main(input: &str, output: &mut DayOutput) {
             }
             let pos = (x as isize, y as isize);
             let nesw = [
-                ws.at(Direction::go(pos, Direction::NE)),
-                ws.at(Direction::go(pos, Direction::SW)),
+                ws.at(Facing::go(pos, Facing::NE)),
+                ws.at(Facing::go(pos, Facing::SW)),
             ];
             let nwse = [
-                ws.at(Direction::go(pos, Direction::NW)),
-                ws.at(Direction::go(pos, Direction::SE)),
+                ws.at(Facing::go(pos, Facing::NW)),
+                ws.at(Facing::go(pos, Facing::SE)),
             ];
             fn is_mas(letters: &[Option<Letter>; 2]) -> bool {
                 letters.contains(&Some(Letter::M)) && letters.contains(&Some(Letter::S))

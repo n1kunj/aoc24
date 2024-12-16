@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::day_output::DayOutput;
+use crate::{day_output::DayOutput, direction::Direction, map::{Map, Row}};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum Tile {
@@ -8,53 +8,9 @@ enum Tile {
     Obstruction,
 }
 
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
-
-impl Direction {
-    fn go((x, y): (isize, isize), d: Direction) -> (isize, isize) {
-        match d {
-            Direction::Up => (x, y - 1),
-            Direction::Right => (x + 1, y),
-            Direction::Down => (x, y + 1),
-            Direction::Left => (x - 1, y),
-        }
-    }
-
-    fn turn_right(d: Direction) -> Direction {
-        match d {
-            Direction::Up => Direction::Right,
-            Direction::Right => Direction::Down,
-            Direction::Down => Direction::Left,
-            Direction::Left => Direction::Up,
-        }
-    }
-}
-
-struct Row {
-    tiles: Vec<Tile>,
-}
-
-struct Map {
-    rows: Vec<Row>,
-}
-
-impl Map {
-    fn at(&self, (x, y): (isize, isize)) -> Option<Tile> {
-        let x: usize = x.try_into().ok()?;
-        let y: usize = y.try_into().ok()?;
-        let row = self.rows.get(y)?;
-        row.tiles.get(x).copied()
-    }
-}
 
 pub fn main(input: &str, output: &mut DayOutput) {
-    let mut rows = Vec::<Row>::new();
+    let mut rows = Vec::<Row<Tile>>::new();
     let mut start_pos: Option<(usize, usize)> = None;
     for (y, line) in input.lines().enumerate() {
         let mut tiles = Vec::<Tile>::new();

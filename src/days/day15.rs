@@ -1,4 +1,8 @@
-use crate::day_output::DayOutput;
+use crate::{
+    day_output::DayOutput,
+    direction::Direction,
+    map::{Map, Row},
+};
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 enum Tile {
@@ -13,50 +17,6 @@ enum Tile2 {
     BoxL,
     BoxR,
     Wall,
-}
-
-#[derive(Debug, Clone)]
-struct Row<T> {
-    tiles: Vec<T>,
-}
-
-#[derive(Debug, Clone)]
-struct Map<T> {
-    rows: Vec<Row<T>>,
-}
-
-impl<T: Copy> Map<T> {
-    fn at(&self, (x, y): (isize, isize)) -> Option<T> {
-        let x: usize = x.try_into().ok()?;
-        let y: usize = y.try_into().ok()?;
-        let row = self.rows.get(y)?;
-        row.tiles.get(x).copied()
-    }
-    fn at_mut(&mut self, (x, y): (isize, isize)) -> Option<&mut T> {
-        let x: usize = x.try_into().ok()?;
-        let y: usize = y.try_into().ok()?;
-        let row = self.rows.get_mut(y)?;
-        row.tiles.get_mut(x)
-    }
-}
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
-
-impl Direction {
-    fn go((x, y): (isize, isize), d: Direction) -> (isize, isize) {
-        match d {
-            Direction::Up => (x, y - 1),
-            Direction::Right => (x + 1, y),
-            Direction::Down => (x, y + 1),
-            Direction::Left => (x - 1, y),
-        }
-    }
 }
 
 pub fn main(input: &str, output: &mut DayOutput) {
@@ -220,7 +180,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
                 if !can_move {
                     break;
                 }
-                wavefront.extend(next_wavefront.drain(..));
+                wavefront.append(&mut next_wavefront);
                 if wavefront.is_empty() {
                     break;
                 }

@@ -1,45 +1,13 @@
 use std::collections::HashMap;
 
-use crate::day_output::DayOutput;
-
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
-
-impl Direction {
-    fn go((x, y): (isize, isize), d: Direction) -> (isize, isize) {
-        match d {
-            Direction::Up => (x, y - 1),
-            Direction::Right => (x + 1, y),
-            Direction::Down => (x, y + 1),
-            Direction::Left => (x - 1, y),
-        }
-    }
-}
-
-struct Row {
-    tiles: Vec<u32>,
-}
-
-struct Map {
-    rows: Vec<Row>,
-}
-
-impl Map {
-    fn at(&self, (x, y): (isize, isize)) -> Option<u32> {
-        let x: usize = x.try_into().ok()?;
-        let y: usize = y.try_into().ok()?;
-        let row = self.rows.get(y)?;
-        row.tiles.get(x).copied()
-    }
-}
+use crate::{
+    day_output::DayOutput,
+    direction::Direction,
+    map::{Map, Row},
+};
 
 pub fn main(input: &str, output: &mut DayOutput) {
-    let mut rows: Vec<Row> = Vec::<Row>::new();
+    let mut rows = Vec::<Row<u32>>::new();
     let mut heads = Vec::<(usize, usize)>::new();
     for (y, line) in input.lines().enumerate() {
         let mut tiles = Vec::<u32>::new();

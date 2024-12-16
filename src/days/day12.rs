@@ -1,48 +1,14 @@
 use std::collections::HashSet;
 
-use crate::day_output::DayOutput;
+use crate::{
+    day_output::DayOutput,
+    direction::{Direction, DIRECTIONS},
+    map::{Map, Row},
+};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 struct Plant {
     c: char,
-}
-
-#[derive(Debug, Clone)]
-struct Row {
-    plants: Vec<Plant>,
-}
-
-#[derive(Debug, Clone)]
-struct Map {
-    rows: Vec<Row>,
-}
-
-impl Map {
-    fn at(&self, (x, y): (isize, isize)) -> Option<Plant> {
-        let x: usize = x.try_into().ok()?;
-        let y: usize = y.try_into().ok()?;
-        let row = self.rows.get(y)?;
-        row.plants.get(x).copied()
-    }
-}
-
-#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
-enum Direction {
-    Up,
-    Right,
-    Down,
-    Left,
-}
-
-impl Direction {
-    fn go((x, y): (isize, isize), d: Direction) -> (isize, isize) {
-        match d {
-            Direction::Up => (x, y - 1),
-            Direction::Right => (x + 1, y),
-            Direction::Down => (x, y + 1),
-            Direction::Left => (x - 1, y),
-        }
-    }
 }
 
 #[derive(Debug, Clone)]
@@ -53,13 +19,13 @@ struct Region {
 }
 
 pub fn main(input: &str, output: &mut DayOutput) {
-    let mut rows = Vec::<Row>::new();
+    let mut rows = Vec::<Row<Plant>>::new();
     for line in input.lines() {
         let mut plants = Vec::<Plant>::new();
         for c in line.chars() {
             plants.push(Plant { c });
         }
-        rows.push(Row { plants });
+        rows.push(Row { tiles: plants });
     }
     let map = Map { rows };
 
@@ -68,7 +34,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
     let mut regions = Vec::<Region>::new();
 
     for (y, row) in map.rows.iter().enumerate() {
-        for (x, plant) in row.plants.iter().enumerate() {
+        for (x, plant) in row.tiles.iter().enumerate() {
             let start_pos = (x as isize, y as isize);
             if touched.contains(&start_pos) {
                 continue;
@@ -84,12 +50,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
 
             while !next_to_search.is_empty() {
                 for p in next_to_search.drain() {
-                    for d in [
-                        Direction::Up,
-                        Direction::Right,
-                        Direction::Down,
-                        Direction::Left,
-                    ] {
+                    for d in DIRECTIONS {
                         let next_pos = Direction::go(p, d);
                         if region.contains(&next_pos) {
                             continue;

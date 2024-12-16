@@ -1,6 +1,9 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::day_output::DayOutput;
+use crate::{
+    day_output::DayOutput,
+    map::{Map, Row},
+};
 
 #[derive(Copy, Clone)]
 enum Tile {
@@ -8,25 +11,8 @@ enum Tile {
     Antenna(char),
 }
 
-struct Row {
-    tiles: Vec<Tile>,
-}
-
-struct Map {
-    rows: Vec<Row>,
-}
-
-impl Map {
-    fn at(&self, (x, y): (isize, isize)) -> Option<Tile> {
-        let x: usize = x.try_into().ok()?;
-        let y: usize = y.try_into().ok()?;
-        let row = self.rows.get(y)?;
-        row.tiles.get(x).copied()
-    }
-}
-
 pub fn main(input: &str, output: &mut DayOutput) {
-    let mut rows = Vec::<Row>::new();
+    let mut rows = Vec::<Row<Tile>>::new();
     for line in input.lines() {
         let mut tiles = Vec::<Tile>::new();
         for c in line.chars() {
