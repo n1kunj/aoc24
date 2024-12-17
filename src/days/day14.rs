@@ -91,7 +91,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
         }
         part1 *= r_count;
     }
-    output.part1(part1 as i64);
+    output.part1(part1.to_string());
 
     let mut p2_robots = robots.clone();
 
@@ -124,5 +124,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
         simulate(sz, iter_jump, &mut p2_robots);
         iter_count += iter_jump;
     }
-    output.part2(iter_count as i64);
+    output.part2(iter_count.to_string());
 }

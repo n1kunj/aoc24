@@ -85,8 +85,8 @@ pub fn main(input: &str, output: &mut DayOutput) {
     }
 
     let part1 = machines.iter().filter_map(calc_cost).sum::<isize>();
-    output.part1(part1 as i64);
+    output.part1(part1.to_string());
 
     let part2 = machines2.iter().filter_map(calc_cost).sum::<isize>();
-    output.part2(part2 as i64);
+    output.part2(part2.to_string());
 }

@@ -64,7 +64,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
         })
         .count();
 
-    output.part1(safe_count as i64);
+    output.part1(safe_count.to_string());
 
     let safe_dampened_count = reports
         .iter()
@@ -82,5 +82,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
         })
         .count();
 
-    output.part2(safe_dampened_count as i64);
+    output.part2(safe_dampened_count.to_string());
 }

@@ -87,6 +87,6 @@ pub fn main(input: &str, output: &mut DayOutput) {
             }
         }
     }
-    output.part1(antinodes.len() as i64);
-    output.part2(resonants.len() as i64);
+    output.part1(antinodes.len().to_string());
+    output.part2(resonants.len().to_string());
 }

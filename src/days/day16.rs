@@ -104,7 +104,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
         .filter_map(|d| visited.get(&((end.0 as isize, end.1 as isize), *d)))
         .min()
         .unwrap();
-    output.part1(part1 as i64);
+    output.part1(part1.to_string());
 
     // Part 2
     let mut heads = HashMap::<((isize, isize), Direction), isize>::new();
@@ -147,5 +147,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
         }
     }
 
-    output.part2(on_best_path.len() as i64);
+    output.part2(on_best_path.len().to_string());
 }

@@ -40,18 +40,11 @@ fn main() -> Result<(), String> {
             Path::new(&path_name).to_owned()
         };
 
-        let parse_part = |res: std::io::Result<String>| -> Option<i64> {
-            match res {
-                Ok(s) => Some(s.parse::<i64>().unwrap()),
-                Err(_) => None,
-            }
-        };
-
         let input_str = std::fs::read_to_string(path("input")).unwrap();
-        let part1 = parse_part(std::fs::read_to_string(path("part1")));
-        let part2 = parse_part(std::fs::read_to_string(path("part2")));
+        let part1 = std::fs::read_to_string(path("part1")).ok();
+        let part2 = std::fs::read_to_string(path("part2")).ok();
 
-        run(f, input, &input_str, part1, part2);
+        run(f, input, &input_str, &part1, &part2);
     };
 
     match &args.input {
@@ -101,8 +94,8 @@ fn run(
     f: &fn(&str, output: &mut DayOutput),
     name: &str,
     input: &str,
-    part1: Option<i64>,
-    part2: Option<i64>,
+    part1: &Option<String>,
+    part2: &Option<String>,
 ) {
     println!("[{name}] Running...");
 
@@ -117,7 +110,7 @@ fn run(
     compare_result(name, 2, part2, res.get_part2());
 }
 
-fn compare_result(name: &str, part: i64, expected: Option<i64>, actual: Option<i64>) {
+fn compare_result(name: &str, part: i64, expected: &Option<String>, actual: &Option<String>) {
     match (actual, expected) {
         (None, None) => {
             println!("    [{name}] Part {part}: No result nor expected result")

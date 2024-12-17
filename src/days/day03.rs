@@ -10,8 +10,8 @@ pub fn main(input: &str, output: &mut DayOutput) {
         let get = |i: usize| c.get(i).unwrap().as_str().parse::<i64>().unwrap();
         get(1) * get(2)
     }
-    let part1 = mul_re.captures_iter(input).map(|c| mul(&c)).sum();
-    output.part1(part1);
+    let part1 = mul_re.captures_iter(input).map(|c| mul(&c)).sum::<i64>();
+    output.part1(part1.to_string());
 
     #[derive(Debug)]
     enum Command {
@@ -47,5 +47,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
             Command::Dont => do_add = false,
         }
     }
-    output.part2(part2);
+    output.part2(part2.to_string());
 }

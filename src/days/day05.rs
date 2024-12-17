@@ -69,7 +69,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
         .map(middle_page)
         .sum::<usize>() as i64;
 
-    output.part1(part1);
+    output.part1(part1.to_string());
 
     let part2 = updates
         .iter()
@@ -82,5 +82,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
         .map(|u| middle_page(&u))
         .sum::<usize>() as i64;
 
-    output.part2(part2);
+    output.part2(part2.to_string());
 }

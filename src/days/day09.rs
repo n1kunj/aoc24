@@ -108,7 +108,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
 
     let part1 = calc_checksum(&part1_bm);
 
-    output.part1(part1 as i64);
+    output.part1(part1.to_string());
 
     let mut part2_ents = entries.clone();
     let mut i = part2_ents.len();
@@ -154,5 +154,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
     }
 
     let part2 = calc_checksum(&entries_to_bm(&part2_ents));
-    output.part2(part2 as i64);
+    output.part2(part2.to_string());
 }

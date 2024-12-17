@@ -115,7 +115,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
                 }
             }
         }
-        output.part1(part1 as i64);
+        output.part1(part1.to_string());
     }
 
     #[allow(dead_code)]
@@ -209,6 +209,6 @@ pub fn main(input: &str, output: &mut DayOutput) {
                 }
             }
         }
-        output.part2(part2 as i64);
+        output.part2(part2.to_string());
     }
 }

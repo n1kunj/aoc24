@@ -69,7 +69,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
             }
         }
     }
-    output.part1(part1);
+    output.part1(part1.to_string());
 
     let mut part2 = 0i64;
     for (y, row) in ws.rows.iter().enumerate() {
@@ -94,5 +94,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
             }
         }
     }
-    output.part2(part2)
+    output.part2(part2.to_string())
 }

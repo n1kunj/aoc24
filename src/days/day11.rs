@@ -52,6 +52,6 @@ pub fn main(input: &str, output: &mut DayOutput) {
         cur_stone_counts.values().sum()
     };
 
-    output.part1(get_stone_counts_after_iters(25) as i64);
-    output.part2(get_stone_counts_after_iters(75) as i64);
+    output.part1(get_stone_counts_after_iters(25).to_string());
+    output.part2(get_stone_counts_after_iters(75).to_string());
 }

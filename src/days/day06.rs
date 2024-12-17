@@ -1,13 +1,16 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::{day_output::DayOutput, direction::Direction, map::{Map, Row}};
+use crate::{
+    day_output::DayOutput,
+    direction::Direction,
+    map::{Map, Row},
+};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 enum Tile {
     Space,
     Obstruction,
 }
-
 
 pub fn main(input: &str, output: &mut DayOutput) {
     let mut rows = Vec::<Row<Tile>>::new();
@@ -57,7 +60,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
     }
 
     let unique_positions = path_history.iter().map(|pd| pd.0).collect::<HashSet<_>>();
-    output.part1(unique_positions.len() as i64);
+    output.part1(unique_positions.len().to_string());
 
     let posdir_index = path_history
         .iter()
@@ -123,5 +126,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
         }
     }
 
-    output.part2(loop_count);
+    output.part2(loop_count.to_string());
 }

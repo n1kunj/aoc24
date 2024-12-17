@@ -21,7 +21,7 @@ pub fn main(input: &str, output: &mut DayOutput) {
         .map(|(l, r)| l.abs_diff(*r))
         .sum::<u64>() as i64;
 
-    output.part1(sum_diffs);
+    output.part1(sum_diffs.to_string());
 
     let mut right_counts = HashMap::<u64, u64>::new();
     for r in &rights {
@@ -36,5 +36,5 @@ pub fn main(input: &str, output: &mut DayOutput) {
         })
         .sum::<u64>() as i64;
 
-    output.part2(sim_score);
+    output.part2(sim_score.to_string());
 }
