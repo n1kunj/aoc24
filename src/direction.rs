@@ -8,11 +8,15 @@ pub enum Direction {
 
 impl Direction {
     pub fn go((x, y): (isize, isize), d: Direction) -> (isize, isize) {
+        Direction::go_n((x, y), d, 1)
+    }
+
+    pub fn go_n((x, y): (isize, isize), d: Direction, n: isize) -> (isize, isize) {
         match d {
-            Direction::Up => (x, y - 1),
-            Direction::Right => (x + 1, y),
-            Direction::Down => (x, y + 1),
-            Direction::Left => (x - 1, y),
+            Direction::Up => (x, y - n),
+            Direction::Right => (x + n, y),
+            Direction::Down => (x, y + n),
+            Direction::Left => (x - n, y),
         }
     }
 
